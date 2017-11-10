@@ -6,7 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 class CharacterControls : MonoBehaviour
 {
-    [SerializeField]private SpriteRenderer character;
     [SerializeField] private float interactionDistance;
     private NavMeshAgent agent;
 
@@ -15,14 +14,6 @@ class CharacterControls : MonoBehaviour
 	{
 
 	    agent = GetComponent<NavMeshAgent>();
-	    if (!character)
-	    {
-	        character = GetComponent<SpriteRenderer>();
-	        if (!character)
-	        {
-	            character = GetComponentInChildren<SpriteRenderer>();
-	        }
-	    }
 	}
 	
 	// Update is called once per frame
@@ -38,14 +29,16 @@ class CharacterControls : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                agent.destination = transform.position;
                 StopAllCoroutines();
+                agent.isStopped = false;
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
+                    Debug.Log(hit.point);
                     agent.destination = hit.point;
+                    StartCoroutine("Interact", hit);
                 }
-                StartCoroutine("Interact",hit);
+                
             }
         }
     }
@@ -58,7 +51,6 @@ class CharacterControls : MonoBehaviour
         {
             while (agent.remainingDistance > interactionDistance)
             {
-                Debug.Log("Remaining distance: " + agent.remainingDistance);
                 yield return null;
             }
             agent.isStopped = true;

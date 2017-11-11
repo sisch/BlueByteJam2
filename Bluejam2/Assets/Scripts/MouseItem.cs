@@ -20,6 +20,7 @@ public class MouseItem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && item != null)
         {
+            spawnPresent.Instance.newPresent();
             Destroy(item.gameObject);
             item = null;
         }
@@ -35,6 +36,10 @@ public class MouseItem : MonoBehaviour
             item.transform.localScale = Vector3.one/2f;
             return true;
         }
+        if (item.transform.GetComponent<InteractablePresent>() != null)
+        {
+            item.name = "present";
+        }
         return false;
     }
 
@@ -42,6 +47,8 @@ public class MouseItem : MonoBehaviour
     {
         if (item)
         {
+
+            spawnPresent.Instance.newPresent();
             Destroy(item.gameObject);
         }
         item = null;

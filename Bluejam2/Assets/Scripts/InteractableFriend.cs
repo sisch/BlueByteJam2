@@ -17,11 +17,12 @@ public class InteractableFriend : InteractableItem {
     public override void Click()
     {
         Debug.Log("Friend");
-        if (MouseItem.item.gameObject.name.Equals("present"))
+        if (MouseItem.item && MouseItem.item.gameObject.name.Equals("present"))
         {
             // Receive present
-            Debug.Log("Thank you");
-            MouseItem.Instance.UseItem();
+            MouseItem.item.transform.SetParent(transform);
+            MouseItem.item = null;
+            spawnPresent.Instance.newPresent();
         }
     }
 }

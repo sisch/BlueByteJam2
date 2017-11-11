@@ -16,6 +16,10 @@ public class MCP : MonoBehaviour {
 	    {
 	        Reset();
 	    }
+	    if (Input.GetButton("Cancel"))
+	    {
+	        Application.Quit();
+	    }
 	}
 
     public static void Reset()

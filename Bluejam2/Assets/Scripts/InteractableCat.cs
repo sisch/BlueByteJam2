@@ -28,6 +28,10 @@ public class InteractableCat : InteractableItem
         while (timesClicked < 7)
         {
             timesClicked++;
+            if (timesClicked == 3)
+            {
+                TaskManager.Instance.finishTask("Pet");
+            }
             // Play Sound
             Debug.Log("Meow"+timesClicked);
             yield return null;
@@ -37,6 +41,6 @@ public class InteractableCat : InteractableItem
         transform.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
         Rigidbody r = gameObject.AddComponent<Rigidbody>();
         r.angularVelocity = transform.right * 5f;
-        //transform.DORotate();
+        TaskManager.Instance.failTask("Pet");
     }
 }

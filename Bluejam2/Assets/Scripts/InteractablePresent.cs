@@ -15,6 +15,7 @@ public class InteractablePresent : InteractableItem
 	void Start ()
 	{
 	    pickedUp = false;
+	    gameObject.name = "present";
 	}
 	
 	// Update is called once per frame

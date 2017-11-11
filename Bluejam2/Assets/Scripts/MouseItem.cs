@@ -40,6 +40,10 @@ public class MouseItem : MonoBehaviour
 
     public void UseItem()
     {
+        if (item)
+        {
+            Destroy(item.gameObject);
+        }
         item = null;
     }
 

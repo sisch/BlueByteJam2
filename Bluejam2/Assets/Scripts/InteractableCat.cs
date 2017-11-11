@@ -13,7 +13,10 @@ public class InteractableCat : InteractableItem
 
     public override void Click()
     {
-        action.MoveNext();
+        if (MouseItem.item == null)
+        {
+            action.MoveNext();
+        }
     }
 
     IEnumerator catResponse()
@@ -32,6 +35,8 @@ public class InteractableCat : InteractableItem
         // Play awful sound
         // Tilt cat
         transform.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
+        Rigidbody r = gameObject.AddComponent<Rigidbody>();
+        r.angularVelocity = transform.right * 5f;
         //transform.DORotate();
     }
 }

@@ -27,14 +27,13 @@ class CharacterControls : MonoBehaviour
     {
         if (Input.mousePresent)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 StopAllCoroutines();
                 agent.isStopped = false;
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
-                    Debug.Log(hit.point);
                     agent.destination = hit.point;
                     StartCoroutine("Interact", hit);
                 }

@@ -50,15 +50,15 @@ class CharacterControls : MonoBehaviour
         InteractableItem item = hitObject.GetComponent<InteractableItem>();
         if (item != null)
         {
-            while (Vector3.Distance(hitObject.transform.position,transform.position) > interactionDistance)
+            while (Vector3.Distance(hit.point,transform.position) > interactionDistance)
             {
-                Debug.Log("Too far away");
+                Debug.Log("Too far away, "+ hitObject.name);
                 yield return null;
             }
             agent.isStopped = true;
             while (agent.velocity.magnitude > arrivalDistance)
             {
-                Debug.Log("Too much velocity");
+                Debug.Log("Too much velocity, " + hitObject.name);
                 yield return null;
             }
             item.Click();

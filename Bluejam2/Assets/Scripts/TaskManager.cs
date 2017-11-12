@@ -13,6 +13,11 @@ public class TaskManager : MonoBehaviour
 
     public Light directionalLight;
 
+    private int failedTasks;
+    private int completedTasks;
+
+    public GameObject GameOverOverlay;
+    public GameObject HappyOverlay;
 	// Use this for initialization
 	void Start ()
 	{
@@ -21,11 +26,21 @@ public class TaskManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+	    if (failedTasks == 2)
+	    {
+	        GameOver();
+	        failedTasks++;
+	    }
+	    if (completedTasks == 2)
+	    {
+	        showHappy();
+	        completedTasks = 0;
+	    }
 	}
 
     public void finishTask(string taskName)
     {
+        resetOverlays();
         foreach (var task in tasks)
         {
             if (task.name.Equals(taskName))
@@ -35,10 +50,12 @@ public class TaskManager : MonoBehaviour
                 directionalLight.intensity += 0.35f;
             }
         }
+        completedTasks++;
     }
 
     public void failTask(string taskName)
     {
+        resetOverlays();
         foreach (var task in tasks)
         {
             if (task.name.Equals(taskName))
@@ -51,5 +68,23 @@ public class TaskManager : MonoBehaviour
                 directionalLight.intensity *= 0.5f;
             }
         }
+        failedTasks++;
+        completedTasks--;
+    }
+
+    void GameOver()
+    {
+        GameOverOverlay.GetComponent<CanvasGroup>().alpha = 1;
+    }
+
+    void showHappy()
+    {
+        HappyOverlay.GetComponent<CanvasGroup>().alpha = 1;
+    }
+
+    void resetOverlays()
+    {
+        HappyOverlay.GetComponent<CanvasGroup>().alpha = 0;
+        GameOverOverlay.GetComponent<CanvasGroup>().alpha = 0;
     }
 }

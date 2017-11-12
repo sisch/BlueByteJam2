@@ -11,6 +11,8 @@ public class TaskManager : MonoBehaviour
     public GameObject checkmarkPrefab;
     public GameObject crossPrefab;
 
+    public Light directionalLight;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,6 +32,7 @@ public class TaskManager : MonoBehaviour
             {
                 GameObject go = Instantiate(checkmarkPrefab, task.transform);
                 task.symbol = go;
+                directionalLight.intensity += 0.35f;
             }
         }
     }
@@ -45,6 +48,7 @@ public class TaskManager : MonoBehaviour
                 }
                 GameObject go = Instantiate(crossPrefab, task.transform);
                 task.symbol = go;
+                directionalLight.intensity *= 0.5f;
             }
         }
     }

@@ -33,6 +33,13 @@ public class InteractableFriend : InteractableItem
         int timesClicked = 0;
         while (timesClicked < 4)
         {
+            if (MouseItem.item == null)
+            {
+                yield return null;
+                continue;
+               
+            }
+
             timesClicked++;
             if (timesClicked == 2)
             {

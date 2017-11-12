@@ -7,6 +7,7 @@ using UnityEngine.AI;
 class CharacterControls : MonoBehaviour
 {
     [SerializeField] private float interactionDistance;
+    [SerializeField] private float arrivalDistance;
     private NavMeshAgent agent;
 
     // Use this for initialization
@@ -44,15 +45,22 @@ class CharacterControls : MonoBehaviour
 
     private IEnumerator Interact(RaycastHit hit)
     {
+        yield return new WaitForEndOfFrame();
         GameObject hitObject = hit.transform.gameObject;
         InteractableItem item = hitObject.GetComponent<InteractableItem>();
         if (item != null)
         {
-            while (agent.remainingDistance > interactionDistance)
+            while (Vector3.Distance(hitObject.transform.position,transform.position) > interactionDistance)
             {
+                Debug.Log("Too far away");
                 yield return null;
             }
             agent.isStopped = true;
+            while (agent.velocity.magnitude > arrivalDistance)
+            {
+                Debug.Log("Too much velocity");
+                yield return null;
+            }
             item.Click();
         }
         yield return null;

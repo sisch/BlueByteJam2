@@ -50,7 +50,8 @@ class CharacterControls : MonoBehaviour
         InteractableItem item = hitObject.GetComponent<InteractableItem>();
         if (item != null)
         {
-            while (Vector3.Distance(hit.point,transform.position) > interactionDistance)
+            float distance = hitObject.name.Equals("cat") ? 1.5f : interactionDistance;
+            while (Vector3.Distance(hit.point,transform.position) > distance)
             {
                 Debug.Log("Too far away, "+ hitObject.name);
                 yield return null;
